@@ -24,7 +24,17 @@ pip install undetected-chromedriver
 
 # Atualizar todas as dependências do Selenium para garantir compatibilidade
 pip install --upgrade selenium webdriver-manager undetected-chromedriver
+
+# Se nao estiver funcionando o robo, utlize esse comando abaixo.
+
+pip install --upgrade setuptools
+pip install distutils
+pip install --upgrade setuptools undetected-chromedriver
+
+
 ```
+
+
 
 ## 🔧 Como Usar
 
