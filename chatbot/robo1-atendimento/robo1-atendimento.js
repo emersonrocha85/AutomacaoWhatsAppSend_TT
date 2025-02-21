@@ -7,13 +7,10 @@ const client = new Client({
     authStrategy: new LocalAuth()
 });
 
-client.on('qr', qr => {
-    qrcode.generate(qr, { small: true });
-});
+let interacoesRecentes = new Map();
+const TEMPO_BLOQUEIO = 2 * 60 * 60 * 1000; // 2 horas em milissegundos
 
-client.on('ready', () => {
-    console.log('✨💖 Bot está pronto e esperando para encantar! 💖✨');
-});
+const horarioAtendimento = { inicio: 8, fim: 20 };
 
 const saudacao = () => {
     const hora = new Date().getHours();
@@ -31,7 +28,7 @@ Escolha uma das opções abaixo digitando o número correspondente:
 3️⃣ Quero uma *Soda Italiana* 🥤💖  
 4️⃣ Tenho uma dúvida, quero falar com uma atendente 🤳💬  
 
-Ou digite *#sair* para encerrar o atendimento. Estamos aqui para te deixar ainda mais incrível! 💖`;
+Ou digite *sair*, *voltar* ou *menu* para retornar ao início. Estamos aqui para te deixar ainda mais incrível! 💖`;
 
 const menuBrinde = `🎁✨ *Parabéns, rainha!* Você ganhou um *DIAGNÓSTICO CAPILAR GRATUITO*! 👑💆‍♀️
 
@@ -39,7 +36,7 @@ Vamos agendar para cuidar das suas madeixas? 💖
 
 📸 Enviando seu brinde agora...  
 
-Digite *#menu* a qualquer momento para voltar ao menu principal.`;
+Digite *menu* a qualquer momento para voltar ao menu principal.`;
 
 const respostasSubmenu = {
     '1': '📅💖 Me conta, qual dia, horário e serviço deseja agendar? Estamos prontas para realçar ainda mais sua beleza! 💇‍♀️✨',
@@ -60,29 +57,49 @@ const enviarImagensEmSequencia = async (message, imagens) => {
     }
 };
 
+const estaDentroDoHorario = () => {
+    const horaAtual = new Date().getHours();
+    return horaAtual >= horarioAtendimento.inicio && horaAtual < horarioAtendimento.fim;
+};
+
 client.on('message', async message => {
-    const msg = message.body.toLowerCase();
+    const msg = message.body.toLowerCase().trim();
+    const usuario = message.from;
+
+    if (!estaDentroDoHorario()) {
+        return message.reply('⏳💖 Oi, linda! Nosso atendimento funciona das 08h00 às 20h00. Volte nesse horário para agendar sua transformação! ✨💇‍♀️');
+    }
 
     if (['oi', 'olá', 'bom dia', 'boa tarde', 'boa noite'].some(sauda => msg.includes(sauda))) {
-        message.reply(menuPrincipal);
-    } else if (Object.keys(respostasSubmenu).includes(msg)) {
-        message.reply(respostasSubmenu[msg]);
+        if (interacoesRecentes.has(usuario) && Date.now() - interacoesRecentes.get(usuario) < TEMPO_BLOQUEIO) {
+            return;
+        }
+        interacoesRecentes.set(usuario, Date.now());
+        return message.reply(menuPrincipal);
+    }
 
-        if (msg === '2') { // Se a opção escolhida for o brinde
+    if (Object.keys(respostasSubmenu).includes(msg)) {
+        message.reply(respostasSubmenu[msg]);
+        if (msg === '2') {
             const imagens = [
                 path.join(__dirname, 'diag1.jpg'),
                 path.join(__dirname, 'diag2.jpg'),
                 path.join(__dirname, 'diag3.jpg'),
                 path.join(__dirname, 'diag4.jpg')
             ];
-            
             await enviarImagensEmSequencia(message, imagens);
         }
-    } else if (msg === '#menu') {
+    } else if (['sair', 'voltar', 'menu'].includes(msg)) {
         message.reply(menuPrincipal);
-    } else if (msg === '#sair') {
-        message.reply('💖 Atendimento encerrado! Sempre que precisar de um toque de beleza, estamos aqui para você. Até breve, diva! 👑✨');
     }
+});
+
+client.on('qr', qr => {
+    qrcode.generate(qr, { small: true });
+});
+
+client.on('ready', () => {
+    console.log('✨💖 Bot está pronto e esperando para encantar! 💖✨');
 });
 
 client.initialize();
