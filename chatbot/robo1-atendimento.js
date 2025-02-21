@@ -26,24 +26,23 @@ Por favor, selecione uma opção digitando o número correspondente:
 
 1 - Quero agendar um horário.
 
-2 - Tenho uma dúvida.
+2 - Brinde do Mês! #EuQuero.
 
 3 - Quero um Soda Italiana.
 
-4 - Quero falar com Atendente.
+4 - Tenho uma dúvida, quero falar com Atendente.
 
 Ou digite #sair para encerrar o atendimento.`;
 
-const menuDuvida = `✨ SAC:
+const menuBrinde = `✨ Seu Brinde é:
 
-Escreva por favor, qual sua dúvida?
-
+-> Parabéns!!! UM DIAGNÓSTICO CAPILAR. Vamos falar?
 
 Digite #menu a qualquer tempo para retornar ao menu.`;
 
 const respostasSubmenu = {
     '1': 'Diga qual horário, qual dia e qual serviço?',
-    '2': menuDuvida,
+    '2': menuBrinde,
     '3': 'Venha experimentar nossa Soda Italiana ou tomar um Café do CEO de capuccino com bordas de nutella.',
     '4': 'Por favor, aguarde um momento enquanto transferimos para uma de nossas atendentes.'
 };
