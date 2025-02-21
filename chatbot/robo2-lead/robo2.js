@@ -18,7 +18,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 
 // Fluxo de vendas - Target Touch
 client.on('message', async msg => {
-    if (msg.body && msg.from.endsWith('@c.us')) {
+    if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         const contact = await msg.getContact();
         const name = contact.pushname.split(" ")[0];
