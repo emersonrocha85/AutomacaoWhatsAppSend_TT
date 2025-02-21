@@ -48,6 +48,18 @@ const respostasSubmenu = {
     '4': '📞💬 Estamos conectando você com uma de nossas atendentes. Aguarde só um momentinho, linda! ✨💖'
 };
 
+const enviarImagensEmSequencia = async (message, imagens) => {
+    for (const imagemPath of imagens) {
+        if (fs.existsSync(imagemPath)) {
+            const imagem = MessageMedia.fromFilePath(imagemPath);
+            await client.sendMessage(message.from, imagem);
+        } else {
+            console.error('⚠ Arquivo não encontrado:', imagemPath);
+            await message.reply(`⚠ Ops! O arquivo *${path.basename(imagemPath)}* não foi encontrado. Entre em contato com o suporte. 💖`);
+        }
+    }
+};
+
 client.on('message', async message => {
     const msg = message.body.toLowerCase();
 
@@ -57,44 +69,14 @@ client.on('message', async message => {
         message.reply(respostasSubmenu[msg]);
 
         if (msg === '2') { // Se a opção escolhida for o brinde
-            try {
-                // Caminhos dos arquivos
-                const imagePath = path.join(__dirname, 'diag1.jpg');
-                const videoPath = path.join(__dirname, 'diag2.mp4');
-
-                // Verificar se os arquivos existem antes de enviar
-                if (!fs.existsSync(imagePath)) {
-                    console.error('⚠ Arquivo de imagem não encontrado:', imagePath);
-                    message.reply('⚠ Ops! O arquivo de imagem não foi encontrado. Entre em contato com o suporte. 💖');
-                    return;
-                }
-
-                if (!fs.existsSync(videoPath)) {
-                    console.error('⚠ Arquivo de vídeo não encontrado:', videoPath);
-                    message.reply('⚠ Ops! O arquivo de vídeo não foi encontrado. Entre em contato com o suporte. 💖');
-                    return;
-                }
-
-                // Enviando imagem primeiro
-                const imagem = MessageMedia.fromFilePath(imagePath);
-                await client.sendMessage(message.from, imagem, { caption: '📸 Aqui está seu *brinde especial*! 💖✨' });
-
-                // Pequeno delay para garantir que a imagem foi enviada antes do vídeo
-                setTimeout(async () => {
-                    try {
-                        // Enviando vídeo logo após a imagem
-                        const video = MessageMedia.fromFilePath(videoPath);
-                        await client.sendMessage(message.from, video, { caption: '🎥 Um vídeo especial sobre seu diagnóstico capilar! 💆‍♀️✨' });
-                    } catch (videoError) {
-                        console.error('❌ Erro ao enviar o vídeo:', videoError);
-                        message.reply('⚠ Ops! Tivemos um probleminha ao enviar seu vídeo. Verifique se o arquivo está no formato correto (MP4 - H.264) e tente novamente. 💖');
-                    }
-                }, 2000); // Delay de 2 segundos antes do envio do vídeo
-
-            } catch (error) {
-                console.error('❌ Erro ao enviar os arquivos:', error);
-                message.reply('⚠ Ops! Tivemos um probleminha ao enviar seu brinde. Entre em contato com o suporte. 💖');
-            }
+            const imagens = [
+                path.join(__dirname, 'diag1.jpg'),
+                path.join(__dirname, 'diag2.jpg'),
+                path.join(__dirname, 'diag3.jpg'),
+                path.join(__dirname, 'diag4.jpg')
+            ];
+            
+            await enviarImagensEmSequencia(message, imagens);
         }
     } else if (msg === '#menu') {
         message.reply(menuPrincipal);
