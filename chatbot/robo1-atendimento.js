@@ -20,31 +20,31 @@ const saudacao = () => {
     return 'Boa noite';
 };
 
-const menuPrincipal = `${saudacao()}! Bem-vinda ao Glam Luxos - Seu salão de beleza.
+const menuPrincipal = `${saudacao()}! Target Touch - Beleza & Estética.
 
 Por favor, selecione uma opção digitando o número correspondente:
 
-1 - AGENDAR HORÁRIO
-2 - CONHECER NOSSOS SERVIÇOS
-3 - PROMOÇÕES
-4 - FALAR COM ATENDENTE
+1 - Quero agendar um horário.
+
+2 - Tenho uma dúvida.
+
+3 - Quero um Soda Italiana.
+
+4 - Quero falar com Atendente.
 
 Ou digite #sair para encerrar o atendimento.`;
 
-const menuServicos = `✨ Serviços disponíveis no Glam Luxos:
+const menuDuvida = `✨ SAC:
 
-1 - Corte e escova
-2 - Hidratação e tratamento capilar
-3 - Coloração e mechas
-4 - Alongamento de unhas
-5 - Maquiagem profissional
+Escreva por favor, qual sua dúvida?
+
 
 Digite #menu a qualquer tempo para retornar ao menu.`;
 
 const respostasSubmenu = {
-    '1': 'Para agendar seu horário, entre em contato pelo nosso WhatsApp ou visite nosso site: https://espaco.targettouch.com.br',
-    '2': menuServicos,
-    '3': 'Confira nossas promoções especiais em nosso Instagram @glamluxos ou em nosso site.',
+    '1': 'Diga qual horário, qual dia e qual serviço?',
+    '2': menuDuvida,
+    '3': 'Venha experimentar nossa Soda Italiana ou tomar um Café do CEO de capuccino com bordas de nutella.',
     '4': 'Por favor, aguarde um momento enquanto transferimos para uma de nossas atendentes.'
 };
 
