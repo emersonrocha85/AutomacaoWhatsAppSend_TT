@@ -27,7 +27,7 @@ client.on('message', async msg => {
         await delay(3000);
         const contact = await msg.getContact();
         const name = contact.pushname;
-        await client.sendMessage(msg.from, `💖 Olá, ${name.split(" ")[0]}! Seja bem-vinda ao *Target Touch - Beleza & Estética* 💆‍♀️✨\n\nComo posso te ajudar hoje? Escolha uma opção abaixo: \n\n1️⃣ - Serviços 💅\n2️⃣ - Promoções 🎉\n3️⃣ - Benefícios 🌸\n4️⃣ - Agendamentos 📅\n5️⃣ - Outras dúvidas ❓`);
+        await client.sendMessage(msg.from, `💖 Olá, ${name.split(" ")[0]}! \n\nSeja bem-vinda. Somos a *Target Touch - Beleza & Estética* 💆‍♀️✨\nSomos especialista em Beleza e Estética.\n\n1️⃣ - Conhecer nosso Serviços 💅\n2️⃣ - Quero ver as Promoções 🎉\n3️⃣ - Quais Benefícios 🌸\n4️⃣ - Quero Agendar 📅\n5️⃣ - Outras dúvidas ❓`);
         await delay(3000);
         await chat.sendStateTyping();
         await delay(5000);
@@ -54,7 +54,7 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, '🎉 *Promoções Especiais:* \n💖 *Pacote Cabelos Perfeitos* - Hidratação + Corte + Escova por apenas R$99,90! \n🌺 *Dia de Rainha* - Pé e Mão + Sobrancelha por R$49,90! \n📅 *Agende agora e garanta seu desconto!*');
+        await client.sendMessage(msg.from, '🎉 *Promoções Especiais:* \n💖 *Pacote Cabelos Perfeitos* - Hidratação + Corte + Escova por apenas R$ 149,90! \n🌺 *Para seu Dia-a-Dia* - Pé e Mão + Sobrancelha por R$99,90! \n📅 *Agende agora e garanta seu desconto!*');
     }
 
     if (msg.body === '3' && msg.from.endsWith('@c.us')) {
@@ -62,7 +62,7 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, '💎 *Benefícios Exclusivos!* \n💖 Atendimento personalizado \n🌟 Produtos de alta qualidade \n✨ Ambiente aconchegante e sofisticado \n🎀 Profissionais especializados');
+        await client.sendMessage(msg.from, '💎 *Benefícios Exclusivos!* \n💖 Atendimento Personalizado. \n🌟 Produtos de alta qualidade. \n✨ Ambiente aconchegante e sofisticado. \n🎀 Soda Italiana da Casa!!!');
     }
 
     if (msg.body === '4' && msg.from.endsWith('@c.us')) {
@@ -70,7 +70,7 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, '📅 *Agendamentos:* \n💖 Para marcar seu horário, acesse: https://espaco.targettouch.com.br ou fale conosco pelo WhatsApp! 📲');
+        await client.sendMessage(msg.from, '📅 *Agendamentos:* \n💖 Para marcar seu horário, acesse: https://espaco.targettouch.com.br/releases/chatbot/ ou fale conosco pelo WhatsApp! +55 11 98836-4233📲 1198836-4233');
     }
 
     if (msg.body === '5' && msg.from.endsWith('@c.us')) {
